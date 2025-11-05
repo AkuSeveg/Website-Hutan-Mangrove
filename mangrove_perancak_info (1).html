@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekowisata Hutan Mangrove Perancak - Jembrana, Bali</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2a5298;
+            --secondary-color: #667eea;
+            --accent-color: #764ba2;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-light: #f8f9fa;
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 15px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 25px rgba(0,0,0,0.2);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 15px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem);
+            text-align: center;
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 50 Q 25 30, 50 50 T 100 50" stroke="rgba(255,255,255,0.1)" fill="none" stroke-width="2"/></svg>');
+            opacity: 0.3;
+        }
+
+        header h1 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge-container {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: var(--transition);
+        }
+
+        .badge:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .gallery-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            text-align: center;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 0.75rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            background: var(--bg-light);
+            height: 250px;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1rem;
+            font-size: 0.9rem;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Fun Facts Section */
+        .funfacts-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: var(--radius-lg);
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            color: white;
+        }
+
+        .funfacts-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            border-bottom: 3px solid rgba(255,255,255,0.3);
+            padding-bottom: 1rem;
+        }
+
+        .funfacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .funfact-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .funfact-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transition: var(--transition);
+        }
+
+        .funfact-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.25);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .funfact-card:hover::before {
+            top: 0;
+            right: 0;
+        }
+
+        .funfact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .funfact-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: white;
+        }
+
+        .funfact-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.95);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem);
+            background: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            font-weight: 600;
+            transition: var(--transition);
+            color: var(--secondary-color);
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+            gap: clamp(1rem, 3vw, 1.5rem);
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: clamp(1.5rem, 4vw, 2rem);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 0.75rem;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem 0;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+        }
+
+        .info-item {
+            background: var(--bg-light);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .info-item:hover {
+            background: #e8f0fe;
+            transform: translateX(5px);
+        }
+
+        .info-item strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-box {
+            background: white;
+            padding: clamp(1rem, 3vw, 1.5rem);
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: block;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            margin-top: 0.5rem;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+
+        /* Feature List */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 1rem 0 1rem 2.5rem;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li:hover {
+            background: var(--bg-light);
+            padding-left: 3rem;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+            width: 2rem;
+            text-align: center;
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: clamp(1.5rem, 4vw, 2rem);
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .highlight h2 {
+            color: white;
+            border-bottom: 3px solid rgba(255,255,255,0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin-top: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        footer h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+        }
+
+        /* Responsive Typography */
+        p {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            margin-bottom: 1rem;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item {
+                height: 200px;
+            }
+
+            .tabs {
+                gap: 0.5rem;
+            }
+
+            .tab-btn {
+                flex: 1 1 auto;
+                min-width: 120px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .tabs, .tab-btn {
+                display: none;
+            }
+
+            .tab-content {
+                display: block !important;
+            }
+        }
+
+        /* Accessibility */
+        .tab-btn:focus,
+        button:focus {
+            outline: 3px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌿 Ekowisata Hutan Mangrove Perancak</h1>
+            <p>Desa Perancak, Kecamatan Jembrana, Kabupaten Jembrana, Bali</p>
+            <div class="badge-container">
+                <span class="badge">Destinasi Ekowisata</span>
+                <span class="badge">Konservasi Alam</span>
+                <span class="badge">Edukasi Lingkungan</span>
+            </div>
+        </header>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <h2>📸 Galeri Foto Hutan Mangrove Perancak</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">🌳</div>
+                    <div class="gallery-caption">Jalur Trekking Kayu Sepanjang 165,45 Meter</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">🚶</div>
+                    <div class="gallery-caption">Pengunjung Menyusuri Hutan Mangrove</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">🌊</div>
+                    <div class="gallery-caption">Ekosistem Mangrove yang Asri</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">📷</div>
+                    <div class="gallery-caption">Spot Foto Instagramable</div>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--text-light); font-size: 0.9rem;">
+                <em>*Ilustrasi visual Ekowisata Mangrove Perancak yang diresmikan Desember 2020</em>
+            </p>
+        </section>
+
+        <!-- Fun Facts Section -->
+        <section class="funfacts-section">
+            <h2>🎯 Fun Facts: Fakta Menarik Hutan Mangrove</h2>
+            <div class="funfacts-grid">
+                <div class="funfact-card">
+                    <span class="funfact-icon">🇮🇩</span>
+                    <div class="funfact-title">Indonesia Juara Mangrove Dunia!</div>
+                    <div class="funfact-text">Indonesia memiliki 25% dari total luas mangrove di seluruh dunia dengan luas 2,5-4,5 juta hektare, melampaui Brazil, Nigeria, dan Australia!</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">💪</span>
+                    <div class="funfact-title">Penahan Tsunami Alami</div>
+                    <div class="funfact-text">Hutan mangrove dapat meredam kekuatan gelombang tsunami hingga 90%! Akar-akar kuat mangrove mampu menahan hempasan ombak besar dan melindungi daratan.</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">💚</span>
+                    <div class="funfact-title">Penyimpan Karbon Super</div>
+                    <div class="funfact-text">Mangrove menyimpan 5 KALI karbon lebih banyak per hektare dibanding hutan tropis daratan tinggi! Mangrove Perancak menyimpan 359,24 ton karbon organik per hektare.</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">🧂</span>
+                    <div class="funfact-title">Filter Garam Ajaib</div>
+                    <div class="funfact-text">Pohon mangrove bisa menyaring 90-97% garam dari air laut! Garam yang tersisa dikeluarkan melalui daun tua yang kemudian gugur - sistem desalinasi alami!</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">🐟</span>
+                    <div class="funfact-title">Nursery Ground Biota Laut</div>
+                    <div class="funfact-text">70% ikan yang ditangkap nelayan menghabiskan masa kecilnya di hutan mangrove! Akar mangrove menjadi tempat berkembang biak ikan, udang, dan kepiting.</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">🌴</span>
+                    <div class="funfact-title">Keanekaragaman Tertinggi</div>
+                    <div class="funfact-text">Indonesia memiliki 202 jenis mangrove dari 60 jenis di dunia! Mangrove Perancak sendiri memiliki 17 jenis mangrove yang tumbuh secara alami.</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">🏝️</span>
+                    <div class="funfact-title">Pembentuk Pulau Baru</div>
+                    <div class="funfact-text">Mangrove bisa membentuk daratan baru! Akar-akarnya menangkap sedimen dan lumpur, memperluas garis pantai hingga 70 meter per dekade.</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">🌡️</span>
+                    <div class="funfact-title">Penyejuk Udara Alami</div>
+                    <div class="funfact-text">Hutan mangrove dapat menurunkan suhu lingkungan hingga 5°C! Evapotranspirasi dari daun mangrove menciptakan efek pendinginan di kawasan pesisir.</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">⚡</span>
+                    <div class="funfact-title">Akar Nafas Unik</div>
+                    <div class="funfact-text">Mangrove punya "pneumatophores" atau akar nafas yang mencuat ke atas lumpur untuk bernafas! Adaptasi unik untuk hidup di tanah berlumpur tanpa oksigen.</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">💎</span>
+                    <div class="funfact-title">Harta Karun Tersembunyi</div>
+                    <div class="funfact-text">Mangrove menghasilkan "hasil hutan bukan kayu" bernilai tinggi: teh herbal dari daun, pewarna alami untuk batik, hingga bahan makanan dari buahnya!</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">🦀</span>
+                    <div class="funfact-title">Rumah 3,000+ Spesies</div>
+                    <div class="funfact-text">Ekosistem mangrove menjadi habitat lebih dari 3,000 spesies! Mulai dari kepiting bakau, ikan belodok, biawak, hingga burung-burung langka.</div>
+                </div>
+                
+                <div class="funfact-card">
+                    <span class="funfact-icon">🌊</span>
+                    <div class="funfact-title">Hidup di Air Asin</div>
+                    <div class="funfact-text">Mangrove bisa hidup di air dengan kadar garam 10x lebih tinggi dari air biasa! Tanaman darat biasa akan mati, tapi mangrove malah berkembang.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">Gambaran Umum</button>
+            <button class="tab-btn" onclick="showTab('facilities')">Fasilitas & Aktivitas</button>
+            <button class="tab-btn" onclick="showTab('ecosystem')">Ekosistem</button>
+            <button class="tab-btn" onclick="showTab('visit')">Info Kunjungan</button>
+        </div>
+
+        <!-- Tab Content: Overview -->
+        <div id="overview" class="tab-content active">
+            <div class="content-grid">
+                <div class="card">
+                    <h2>📍 Lokasi & Sejarah</h2>
+                    <div class="info-item">
+                        <strong>Alamat:</strong>
+                        Desa Perancak, Kecamatan Jembrana, Kabupaten Jembrana, Bali
+                    </div>
+                    <div class="info-item">
+                        <strong>Jarak dari Negara:</strong>
+                        8 kilometer dari pusat kota Negara (15 menit berkendara)
+                    </div>
+                    <div class="info-item">
+                        <strong>Diresmikan:</strong>
+                        16 Desember 2020 oleh Bupati Jembrana I Putu Artha
+                    </div>
+                    <div class="info-item">
+                        <strong>Status Kawasan:</strong>
+                        Taman Pesisir (SK Bupati Jembrana No. 778 Tahun 2013)
+                    </div>
+                    <div class="info-item">
+                        <strong>Pengelola:</strong>
+                        BUM Desa Perancak & Pokdarwis Mekar Bersemi
+                    </div>
+                    <p style="margin-top: 1.5rem;">
+                        Ekowisata Hutan Mangrove Perancak merupakan hasil kerja sama Pemkab Jembrana dengan Kementerian Kelautan dan Perikanan RI. Kawasan yang sebelumnya hanya berupa hutan mangrove alami, kini dikembangkan menjadi destinasi ekowisata yang memadukan konservasi, edukasi, dan pariwisata berkelanjutan.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h2>📊 Data & Statistik</h2>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-number">68</span>
+                            <span class="stat-label">Hektare Luas Hutan</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">17</span>
+                            <span class="stat-label">Jenis Mangrove</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">165.45</span>
+                            <span class="stat-label">Meter Jalur Trekking</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">10</span>
+                            <span class="stat-label">Hektare Area Ekowisata</span>
+                        </div>
+                    </div>
+                    <h3>Data Biomassa & Karbon (Penelitian Ilmiah)</h3>
+                    <div class="info-item">
+                        <strong>Above Ground Biomass:</strong>
+                        187,21 ton/hektare
+                    </div>
+                    <div class="info-item">
+                        <strong>Below Ground Biomass:</strong>
+                        125,43 ton/hektare
+                    </div>
+                    <div class="info-item">
+                        <strong>Simpanan Karbon Atas:</strong>
+                        86,11 ton/hektare
+                    </div>
+                    <div class="info-item">
+                        <strong>Simpanan Karbon Bawah:</strong>
+                        57,69 ton/hektare
+                    </div>
+                    <div class="info-item">
+                        <strong>Karbon Organik
